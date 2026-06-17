@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hope Foundation – Connect with NGOs, Make a Difference</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a6b5a;
+    --primary-light: #22907a;
+    --primary-dark: #134d41;
+    --accent: #f4a124;
+    --accent-light: #fde9c2;
+    --bg: #f8fdf9;
+    --text: #1a2e25;
+    --muted: #5a7a6e;
+    --card-bg: #ffffff;
+    --border: #d4ebe2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); }
+  nav { background: var(--primary-dark); padding: 14px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+  .nav-brand { color: #fff; font-size: 20px; font-weight: 700; text-decoration: none; }
+  .nav-brand span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { color: #c8e6dc; font-size: 14px; text-decoration: none; }
+  .nav-links a:hover { color: #fff; }
+  .nav-btn { background: var(--accent); color: #fff; border: none; padding: 8px 20px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .hero { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%); padding: 80px 40px 60px; text-align: center; }
+  .hero h1 { color: #fff; font-size: 38px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+  .hero h1 span { color: var(--accent); }
+  .hero p { color: #a8d8c8; font-size: 16px; max-width: 540px; margin: 0 auto 32px; line-height: 1.7; }
+  .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary-custom { background: var(--accent); color: #fff; border: none; padding: 13px 32px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .btn-outline-custom { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.5); padding: 13px 32px; border-radius: 8px; font-size: 15px; cursor: pointer; }
+  .stats-bar { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 20px 40px; display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-num { font-size: 26px; font-weight: 700; color: var(--primary); }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .section { padding: 60px 40px; }
+  .section-alt { background: #fff; }
+  .section-label { font-size: 12px; font-weight: 600; color: var(--primary-light); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .section-title { font-size: 28px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .section-sub { font-size: 15px; color: var(--muted); margin-bottom: 36px; max-width: 480px; line-height: 1.6; }
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
+  .cat-card { background: var(--card-bg); border: 1.5px solid var(--border); border-radius: 12px; padding: 24px 16px; text-align: center; cursor: pointer; transition: border-color 0.2s, transform 0.15s; }
+  .cat-card:hover { border-color: var(--primary-light); transform: translateY(-2px); }
+  .cat-card.active { border-color: var(--primary); background: #e8f5ef; }
+  .cat-icon { font-size: 32px; margin-bottom: 10px; display: block; }
+  .cat-name { font-size: 13px; font-weight: 600; color: var(--text); }
+  .cat-count { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .ngo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .ngo-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .ngo-banner { height: 8px; background: linear-gradient(90deg, var(--primary), var(--accent)); }
+  .ngo-body { padding: 20px; }
+  .ngo-avatar { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 12px; }
+  .ngo-name { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .ngo-category { font-size: 12px; color: var(--primary-light); font-weight: 500; margin-bottom: 8px; }
+  .ngo-desc { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 16px; }
+  .ngo-progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 5px; }
+  .progress-bar-bg { background: #e8f5ef; border-radius: 4px; height: 6px; }
+  .progress-bar-fill { height: 6px; border-radius: 4px; background: var(--primary-light); }
+  .ngo-footer { display: flex; gap: 10px; margin-top: 16px; }
+  .btn-donate { flex: 1; background: var(--primary); color: #fff; border: none; padding: 9px; border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-donate:hover { background: var(--primary-light); }
+  .btn-details { background: transparent; color: var(--primary); border: 1.5px solid var(--border); padding: 9px 14px; border-radius: 7px; font-size: 13px; cursor: pointer; }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
+  .step { text-align: center; padding: 24px; }
+  .step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--accent-light); color: var(--accent); font-size: 18px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+  .step-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .step-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .reg-section { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); padding: 60px 40px; display: flex; gap: 60px; align-items: center; flex-wrap: wrap; }
+  .reg-text { flex: 1; min-width: 240px; }
+  .reg-text h2 { color: #fff; font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+  .reg-text p { color: #a8d8c8; font-size: 14px; line-height: 1.7; }
+  .reg-form { flex: 1; min-width: 280px; background: #fff; border-radius: 14px; padding: 28px; }
+  .reg-form h3 { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 20px; }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 500; color: var(--muted); margin-bottom: 5px; }
+  .form-group input, .form-group textarea { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 7px; font-size: 14px; color: var(--text); background: #fff; outline: none; font-family: inherit; }
+  .form-group textarea { height: 90px; resize: vertical; }
+  .form-row { display: flex; gap: 12px; }
+  .form-row .form-group { flex: 1; }
+  .btn-register { width: 100%; background: var(--primary); color: #fff; border: none; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .btn-register:hover { background: var(--primary-light); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .contact-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 20px; }
+  .contact-icon { width: 40px; height: 40px; background: #e8f5ef; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .contact-detail { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .contact-detail strong { color: var(--text); display: block; font-size: 14px; margin-bottom: 2px; }
+  .contact-form-box { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 28px; }
+  footer { background: var(--primary-dark); padding: 40px; color: #a8d8c8; }
+  .footer-top { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; margin-bottom: 32px; }
+  .footer-brand { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .footer-brand span { color: var(--accent); }
+  .footer-desc { font-size: 13px; line-height: 1.6; max-width: 240px; }
+  .footer-col h4 { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 14px; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 8px; }
+  .footer-col ul li a { color: #a8d8c8; font-size: 13px; text-decoration: none; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .footer-bottom p { font-size: 12px; color: #6a9e8e; }
+  .tech-stack { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tech-badge { font-size: 11px; background: rgba(255,255,255,0.08); color: #a8d8c8; padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.12); }
+  .modal-overlay { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; }
+  .modal-overlay.active { display: flex; }
+  .modal-box { background: #fff; border-radius: 16px; padding: 32px; max-width: 420px; width: 90%; }
+  .modal-box h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .modal-box p { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+  .amount-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 14px; }
+  .amount-btn { padding: 10px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; background: #fff; color: var(--text); }
+  .amount-btn.selected { border-color: var(--primary); background: #e8f5ef; color: var(--primary); }
+  .modal-close { float:right; background:none; border:none; font-size:20px; cursor:pointer; color: var(--muted); }
+  @media(max-width:768px){ .hero { padding: 50px 20px 40px; } .hero h1 { font-size: 26px; } .section { padding: 40px 20px; } .contact-grid { grid-template-columns: 1fr; } nav { padding: 12px 20px; } .stats-bar { gap: 30px; padding: 16px 20px; } .reg-section { padding: 40px 20px; } footer { padding: 30px 20px; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="nav-brand">Hope <span>Foundation</span></a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#ngos">NGOs</a></li>
+    <li><a href="#about">About Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-btn" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})">Register</button>
+</nav>
+
+<section class="hero" id="home">
+  <p style="font-size:13px;color:var(--accent);font-weight:600;letter-spacing:0.08em;margin-bottom:10px;">CONNECTING DONORS WITH NGOs ACROSS INDIA</p>
+  <h1>Help the people who <span>need you most</span></h1>
+  <p>Hope Foundation connects you to verified charitable organizations working for India's most vulnerable — find an NGO, read their story, and donate in seconds.</p>
+  <div class="hero-btns">
+    <button class="btn-primary-custom" onclick="document.getElementById('ngos').scrollIntoView({behavior:'smooth'})">Browse NGOs</button>
+    <button class="btn-outline-custom" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">How it works</button>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Verified NGOs</div></div>
+  <div class="stat"><div class="stat-num">28</div><div class="stat-label">States covered</div></div>
+  <div class="stat"><div class="stat-num">50,000+</div><div class="stat-label">Lives impacted</div></div>
+  <div class="stat"><div class="stat-num">0%</div><div class="stat-label">Platform fee</div></div>
+</div>
+
+<section class="section section-alt" id="categories">
+  <div class="section-label">Browse by cause</div>
+  <h2 class="section-title">Select your area of interest</h2>
+  <p class="section-sub">Find NGOs working on causes you care about. All data sourced from verified government records and local surveys.</p>
+  <div class="cat-grid">
+    <div class="cat-card active" onclick="selectCat(this)"><span class="cat-icon">📚</span><div class="cat-name">Education</div><div class="cat-count">42 NGOs</div></div>
+    <div class="cat-card" onclick="selectCat(this)"><span class="cat-icon">🍱</span><div class="cat-name">Food & Nutrition</div><div class="cat-count">38 NGOs</div></div>
+    <div class="cat-card" onclick="selectCat(this)"><span class="cat-icon">🏥</span><div class="cat-name">Healthcare</div><div class="cat-count">31 NGOs</div></div>
+    <div class="cat-card" onclick="selectCat(this)"><span class="cat-icon">👩</span><div class="cat-name">Women Empowerment</div><div class="cat-count">27 NGOs</div></div>
+    <div class="cat-card" onclick="selectCat(this)"><span class="cat-icon">👶</span><div class="cat-name">Child Welfare</div><div class="cat-count">35 NGOs</div></div>
+    <div class="cat-card" onclick="selectCat(this)"><span class="cat-icon">🏠</span><div class="cat-name">Shelter & Housing</div><div class="cat-count">19 NGOs</div></div>
+  </div>
+</section>
+
+<section class="section" id="ngos">
+  <div class="section-label">Verified organizations</div>
+  <h2 class="section-title">NGOs raising funds right now</h2>
+  <p class="section-sub">Select an NGO, read their details, confirm your donation amount and submit. Easy payment options available.</p>
+  <div class="ngo-grid">
+    <div class="ngo-card">
+      <div class="ngo-banner"></div>
+      <div class="ngo-body">
+        <div class="ngo-avatar" style="background:#e8f5ef;">📚</div>
+        <div class="ngo-name">Pratham Education Foundation</div>
+        <div class="ngo-category">Education · Verified NGO</div>
+        <div class="ngo-desc">Improving learning outcomes for underprivileged children across 21 Indian states through community-based programs.</div>
+        <div class="ngo-progress-label"><span>₹4,20,000 raised</span><span>84%</span></div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:84%"></div></div>
+        <div class="ngo-footer"><button class="btn-donate" onclick="openDonate('Pratham Education Foundation')">Donate now</button><button class="btn-details">Details</button></div>
+      </div>
+    </div>
+    <div class="ngo-card">
+      <div class="ngo-banner"></div>
+      <div class="ngo-body">
+        <div class="ngo-avatar" style="background:#fde9c2;">🍱</div>
+        <div class="ngo-name">Feeding India</div>
+        <div class="ngo-category">Food & Nutrition · Verified NGO</div>
+        <div class="ngo-desc">Fighting hunger by rescuing surplus food and distributing to those in need. Active in 55 cities across India.</div>
+        <div class="ngo-progress-label"><span>₹2,80,000 raised</span><span>56%</span></div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:56%"></div></div>
+        <div class="ngo-footer"><button class="btn-donate" onclick="openDonate('Feeding India')">Donate now</button><button class="btn-details">Details</button></div>
+      </div>
+    </div>
+    <div class="ngo-card">
+      <div class="ngo-banner"></div>
+      <div class="ngo-body">
+        <div class="ngo-avatar" style="background:#e8eaf6;">🏥</div>
+        <div class="ngo-name">Doctors For You</div>
+        <div class="ngo-category">Healthcare · Verified NGO</div>
+        <div class="ngo-desc">Providing free healthcare and medicines in disaster-affected and rural areas with minimal infrastructure access.</div>
+        <div class="ngo-progress-label"><span>₹1,95,000 raised</span><span>65%</span></div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:65%"></div></div>
+        <div class="ngo-footer"><button class="btn-donate" onclick="openDonate('Doctors For You')">Donate now</button><button class="btn-details">Details</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="how">
+  <div class="section-label">Process</div>
+  <h2 class="section-title">How Hope Foundation works</h2>
+  <p class="section-sub">Three simple steps. All services delivered within seconds.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-title">Search your interest</div><div class="step-desc">Select a cause category — education, food, healthcare, child welfare — to find relevant NGOs in your area of interest.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-title">Read NGO details</div><div class="step-desc">View the full profile of any NGO — mission, fundraising goal, location, and verified government registration status.</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-title">Donate &amp; get receipt</div><div class="step-desc">Choose your amount, confirm, and submit through our secure payment gateway. A payment receipt is generated immediately.</div></div>
+  </div>
+</section>
+
+<section class="reg-section" id="register">
+  <div class="reg-text">
+    <h2>Join Hope Foundation today</h2>
+    <p>Create your account to track your donations, get updates from NGOs you support, and raise fund requests as an organization.</p>
+    <br>
+    <p>Whether you're a <strong style="color:#fff;">donor</strong> looking to help, or an <strong style="color:#fff;">NGO</strong> seeking sponsors — Hope Foundation is your platform.</p>
+  </div>
+  <div class="reg-form">
+    <h3>Create your account</h3>
+    <div class="form-row">
+      <div class="form-group"><label>First name</label><input type="text" placeholder="First name" id="fname"></div>
+      <div class="form-group"><label>Last name</label><input type="text" placeholder="Last name" id="lname"></div>
+    </div>
+    <div class="form-group"><label>Email address</label><input type="email" placeholder="you@email.com" id="email"></div>
+    <div class="form-group"><label>Password</label><input type="password" placeholder="Create a password" id="pass"></div>
+    <button class="btn-register" onclick="handleRegister()">Registration</button>
+    <p style="font-size:11px;color:#999;margin-top:10px;text-align:center;">Your data is secured and never sold to third parties.</p>
+  </div>
+</section>
+
+<section class="section section-alt" id="about">
+  <div class="section-label">About us</div>
+  <h2 class="section-title">About Hope Foundation</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:20px;flex-wrap:wrap;">
+    <div>
+      <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:16px;">Hope Foundation is a platform which works for the welfare of poor people. Our goal is to provide basic necessities and essentials to those in need by connecting them with sponsors and NGOs.</p>
+      <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:16px;">22% of India's population — around 270 million people — live in poverty without access to proper food, water, or shelter. Hope Foundation makes charitable giving accessible, transparent, and instant.</p>
+      <p style="font-size:14px;color:var(--muted);line-height:1.8;">You can view the details of any NGO, then accept or reject their fund request as a sponsor. As an NGO, you get the right to raise fund requests to any sponsor on the platform.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start;">
+      <div style="background:#e8f5ef;border-radius:12px;padding:20px;text-align:center;"><div style="font-size:16px;font-weight:700;color:var(--primary);margin-bottom:4px;">Time saving</div><div style="font-size:12px;color:var(--muted);">Find the right NGO instantly, not in hours</div></div>
+      <div style="background:var(--accent-light);border-radius:12px;padding:20px;text-align:center;"><div style="font-size:16px;font-weight:700;color:#b37800;margin-bottom:4px;">Quality data</div><div style="font-size:12px;color:var(--muted);">Sourced from govt. records and local surveys</div></div>
+      <div style="background:#e8eaf6;border-radius:12px;padding:20px;text-align:center;"><div style="font-size:16px;font-weight:700;color:#534AB7;margin-bottom:4px;">New in city</div><div style="font-size:12px;color:var(--muted);">Easily find nearby NGOs wherever you are</div></div>
+      <div style="background:#fce4ec;border-radius:12px;padding:20px;text-align:center;"><div style="font-size:16px;font-weight:700;color:#c2185b;margin-bottom:4px;">0% fees</div><div style="font-size:12px;color:var(--muted);">100% of your donation goes to the NGO</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="section-label">Get in touch</div>
+  <h2 class="section-title">Contact us</h2>
+  <div class="contact-grid">
+    <div>
+      <h3 style="font-size:20px;font-weight:600;color:var(--text);margin-bottom:20px;">We'd love to hear from you</h3>
+      <div class="contact-item"><div class="contact-icon">📧</div><div class="contact-detail"><strong>Email</strong>info@hopefoundation.com</div></div>
+      <div class="contact-item"><div class="contact-icon">🌐</div><div class="contact-detail"><strong>Website</strong>www.HopeFoundation.com</div></div>
+      <div class="contact-item"><div class="contact-icon">🏫</div><div class="contact-detail"><strong>Developed at</strong>AITRC, Chhindwara, M.P. · Under RGPV Bhopal · B.Tech CSE, 2022</div></div>
+      <div class="contact-item"><div class="contact-icon">👩‍💻</div><div class="contact-detail"><strong>Developers</strong>Sakshi Binjhadekar &amp; Tannu Koche · CSE Dept.</div></div>
+    </div>
+    <div class="contact-form-box">
+      <div class="form-row">
+        <div class="form-group"><label>First name</label><input type="text" placeholder="First name"></div>
+        <div class="form-group"><label>Last name</label><input type="text" placeholder="Last name"></div>
+      </div>
+      <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+      <div class="form-group"><label>Message</label><textarea placeholder="Write your message, report an issue, or register your NGO..."></textarea></div>
+      <button class="btn-register" style="margin-top:4px;">Send message</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-brand">Hope <span>Foundation</span></div><div class="footer-desc">Connecting donors with verified NGOs across India. Making charitable giving simple, transparent, and impactful.</div></div>
+    <div class="footer-col"><h4>Quick links</h4><ul><li><a href="#home">Home</a></li><li><a href="#ngos">Browse NGOs</a></li><li><a href="#register">Register</a></li><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Causes</h4><ul><li><a href="#">Education</a></li><li><a href="#">Food &amp; Nutrition</a></li><li><a href="#">Healthcare</a></li><li><a href="#">Child Welfare</a></li><li><a href="#">Women Empowerment</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2022 Hope Foundation · Minor Project-2 · B.Tech CSE · AITRC Chhindwara · RGPV Bhopal · Developed by Sakshi Binjhadekar &amp; Tannu Koche</p>
+    <div class="tech-stack"><span class="tech-badge">HTML5</span><span class="tech-badge">CSS3</span><span class="tech-badge">Bootstrap 5</span><span class="tech-badge">JavaScript</span><span class="tech-badge">MongoDB</span><span class="tech-badge">AWS LightSail</span></div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="donateModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3 id="modal-ngo-name">Donate</h3>
+    <p>Select an amount. 100% goes directly to the organization — zero platform fee.</p>
+    <div class="amount-grid">
+      <button class="amount-btn" onclick="selectAmt(this)">₹500</button>
+      <button class="amount-btn selected" onclick="selectAmt(this)">₹1,000</button>
+      <button class="amount-btn" onclick="selectAmt(this)">₹2,000</button>
+      <button class="amount-btn" onclick="selectAmt(this)">₹5,000</button>
+      <button class="amount-btn" onclick="selectAmt(this)">₹10,000</button>
+      <button class="amount-btn" onclick="selectAmt(this)">Custom</button>
+    </div>
+    <div class="form-group"><label>Or enter custom amount (₹)</label><input type="number" placeholder="e.g. 3500"></div>
+    <button class="btn-register" onclick="confirmDonate()">Confirm &amp; Pay</button>
+  </div>
+</div>
+
+<script>
+function selectCat(el){ document.querySelectorAll('.cat-card').forEach(c=>c.classList.remove('active')); el.classList.add('active'); document.getElementById('ngos').scrollIntoView({behavior:'smooth'}); }
+function openDonate(name){ document.getElementById('modal-ngo-name').textContent='Donate to '+name; document.getElementById('donateModal').classList.add('active'); }
+function closeModal(){ document.getElementById('donateModal').classList.remove('active'); }
+function selectAmt(el){ document.querySelectorAll('.amount-btn').forEach(b=>b.classList.remove('selected')); el.classList.add('selected'); }
+function confirmDonate(){ alert('Thank you for your donation! A payment receipt will be sent to your registered email.'); closeModal(); }
+function handleRegister(){ var f=document.getElementById('fname').value, e=document.getElementById('email').value; if(!f||!e){alert('Please fill in all required fields.');return;} alert('Welcome, '+f+'! Your account has been created. A verification email has been sent to '+e); }
+document.getElementById('donateModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+</script>
+</body>
+</html>
